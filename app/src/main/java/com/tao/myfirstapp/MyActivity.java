@@ -1,10 +1,15 @@
 package com.tao.myfirstapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class MyActivity extends AppCompatActivity {
 
@@ -24,6 +29,25 @@ public class MyActivity extends AppCompatActivity {
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
+
+
+
+        String filename = "myfile";
+        String string = "Hello world!";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        SharedPreferences.Editor editor = getSharedPreferences("lock", Context.MODE_PRIVATE).edit();
+        editor.putString("code", "123456");
+        editor.commit();
+
     }
 
 
