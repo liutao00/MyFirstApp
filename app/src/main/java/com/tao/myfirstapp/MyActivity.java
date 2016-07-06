@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -34,7 +35,7 @@ public class MyActivity extends AppCompatActivity {
 
         String filename = "myfile";
         String string = "Hello world!";
-        FileOutputStream outputStream;
+        FileOutputStream outputStream,outputStream2;
 
         try {
             outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
@@ -47,6 +48,16 @@ public class MyActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = getSharedPreferences("lock", Context.MODE_PRIVATE).edit();
         editor.putString("code", "123456");
         editor.commit();
+        Log.d("MyActivity","______________code commit______________");
+
+        try {
+            outputStream2 = new FileOutputStream(new File(getExternalFilesDir(
+                    null), "message-save.txt"));
+            outputStream2.write(message.getBytes());
+            outputStream2.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
