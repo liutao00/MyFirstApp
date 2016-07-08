@@ -42,30 +42,31 @@ public class MyActivity extends AppCompatActivity {
 
         ListView lv = (ListView) findViewById(R.id.listView);//得到ListView对象的引用 /*为ListView设置Adapter来绑定数据*/
 
-        lv.setAdapter(new SimpleAdapter(this,data,android.R.layout.simple_list_item_single_choice,
-                new String[]{"姓名"},            //每行显示一个姓名
-                new int[]{android.R.id.text1}   //名字在text1上显示
-        ));
+        if (lv != null) {
+            lv.setAdapter(new SimpleAdapter(this,data,android.R.layout.simple_list_item_single_choice,
+                    new String[]{"姓名"},            //每行显示一个姓名
+                    new int[]{android.R.id.text1}   //名字在text1上显示
+            ));
+            lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-/*        lv.setAdapter(new ArrayAdapter<String>(this,
+            /*        lv.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, getData()));*/
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long arg3) {
-                //点击后在标题上显示点击了第几行
-                setTitle("你点击了第"+position+"行");
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long arg3) {
+                    //点击后在标题上显示点击了第几行
+                    setTitle("你点击了第"+position+"行");
 
-                EditText editText = (EditText) findViewById(R.id.edit_message);
-                Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-                        Toast.LENGTH_SHORT).show();
-                editText.setText(((TextView) view).getText());
-            }
-        });
+                    EditText editText = (EditText) findViewById(R.id.edit_message);
+                    Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
+                            Toast.LENGTH_SHORT).show();
+                    editText.setText(((TextView) view).getText());
+                }
+            });
+        }
 
     }
 
