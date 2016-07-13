@@ -3,6 +3,7 @@ package com.tao.myfirstapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -88,6 +89,16 @@ public class MyActivity extends AppCompatActivity {
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
+
+
+        Intent intent_mail = new Intent(Intent.ACTION_SENDTO);
+        intent_mail.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent_mail.putExtra(Intent.EXTRA_EMAIL, "liutao@szhorn.com");
+        intent_mail.putExtra(Intent.EXTRA_SUBJECT, "message from android app");
+        intent_mail.putExtra(Intent.EXTRA_TEXT, message);
+        if (intent_mail.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent_mail);
+        }
 
 
 
